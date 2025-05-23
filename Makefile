@@ -7,12 +7,6 @@ help: ## Show the help
 .PHONY: build
 build: ## Build the Gotenberg's Docker default image
 	docker build \
-	--build-arg GOLANG_VERSION=$(GOLANG_VERSION) \
-	--build-arg GOTENBERG_VERSION=$(GOTENBERG_VERSION) \
-	--build-arg GOTENBERG_USER_GID=$(GOTENBERG_USER_GID) \
-	--build-arg GOTENBERG_USER_UID=$(GOTENBERG_USER_UID) \
-	--build-arg PDFTK_VERSION=$(PDFTK_VERSION) \
-	--build-arg PDFCPU_VERSION=$(PDFCPU_VERSION) \
 	-t $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY):$(GOTENBERG_VERSION) \
 	-f $(DOCKERFILE) $(DOCKER_BUILD_CONTEXT)
 
