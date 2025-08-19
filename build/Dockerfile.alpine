@@ -116,7 +116,7 @@ RUN \
 COPY --from=gotenberg-default-image /usr/bin/unoconverter /usr/bin/unoconverter
 RUN \
     apk update -q &&\
-    apk add -q --no-cache libassuan poppler icu-data-full &&\
+    apk add -q --no-cache libassuan poppler icu-dev &&\
     apk add -q --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community libreoffice &&\
     apk add -q --no-cache py3-setuptools py3-looseversion &&\
     # Verify installations.
