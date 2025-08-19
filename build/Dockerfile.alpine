@@ -77,11 +77,11 @@ ARG GOTENBERG_USER_UID
 ARG PDFTK_VERSION
 
 LABEL org.opencontainers.image.title="Gotenberg" \
-      org.opencontainers.image.description="A containerized API for seamless PDF conversion." \
-      org.opencontainers.image.version="$GOTENBERG_VERSION" \
-      org.opencontainers.image.authors="Julien Neuhart <neuhart.julien@gmail.com>" \
-      org.opencontainers.image.documentation="https://gotenberg.dev" \
-      org.opencontainers.image.source="https://github.com/gotenberg/gotenberg"
+    org.opencontainers.image.description="A containerized API for seamless PDF conversion." \
+    org.opencontainers.image.version="$GOTENBERG_VERSION" \
+    org.opencontainers.image.authors="Julien Neuhart <neuhart.julien@gmail.com>" \
+    org.opencontainers.image.documentation="https://gotenberg.dev" \
+    org.opencontainers.image.source="https://github.com/gotenberg/gotenberg"
 
 # Create a non-root user.
 # All processes in the Docker container will run with this dedicated user.
@@ -142,6 +142,10 @@ RUN \
 # https://github.com/arachnys/athenapdf/commit/ba25a8d80a25d08d58865519c4cd8756dc9a336d.
 COPY build/fonts.conf /etc/fonts/conf.d/100-gotenberg.conf
 
+# Copy dictionnaries so that hypens work on Chromium.
+# See https://github.com/gotenberg/gotenberg/issues/1293.
+COPY --chown=gotenberg:gotenberg build/chromium-hyphen-data /home/gotenberg/chromium-hyphen-data
+
 # Copy the pdfcpu binary from the pdfcpu-binary-stage.
 COPY --from=pdfcpu-binary-stage /home/pdfcpu /usr/bin/
 
@@ -150,6 +154,7 @@ COPY --from=gotenberg-binary-stage /home/gotenberg /usr/bin/
 
 # Environment variables required by modules or else.
 ENV CHROMIUM_BIN_PATH=/usr/bin/chromium
+ENV CHROMIUM_HYPHEN_DATA_DIR_PATH=/home/gotenberg/chromium-hyphen-data
 ENV LIBREOFFICE_BIN_PATH=/usr/lib/libreoffice/program/soffice.bin
 ENV UNOCONVERTER_BIN_PATH=/usr/bin/unoconverter
 ENV PDFTK_BIN_PATH=/usr/bin/pdftk
