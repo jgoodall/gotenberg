@@ -116,7 +116,7 @@ RUN \
 COPY --from=gotenberg-default-image /usr/bin/unoconverter /usr/bin/unoconverter
 RUN \
     apk update -q &&\
-    apk add -q --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community libreoffice &&\
+    apk add -q --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community icu-libs icu-dev libreoffice &&\
     apk add -q --no-cache py3-setuptools py3-looseversion &&\
     # Verify installations.
     libreoffice --version &&\
@@ -164,3 +164,4 @@ EXPOSE 3000
 
 ENTRYPOINT [ "/sbin/tini", "--" ]
 CMD [ "gotenberg" ]
+
