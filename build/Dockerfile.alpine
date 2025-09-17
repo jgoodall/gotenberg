@@ -108,7 +108,9 @@ RUN \
 # Install Chromium.
 RUN \
     apk update -q &&\
-    apk add -q --no-cache chromium &&\
+    apk add -q --no-cache libopenmpt openmpt123 &&\
+    apk add -q --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/main simdutf &&\
+    apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community chromium &&\
     # Verify installation.
     chromium --version
 
