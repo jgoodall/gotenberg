@@ -105,6 +105,12 @@ RUN \
     fc-cache -fv &&\
     fc-list
 
+RUN \
+    # Install Hyphenation for LibreOffice.
+    # Credits: https://wiki.archlinux.org/title/LibreOffice.
+    apk update -q &&\
+    apk add -q --no-cache hyphen hyphen-en
+
 # Install Chromium.
 RUN \
     apk update -q &&\
