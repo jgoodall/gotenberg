@@ -9,7 +9,7 @@ require (
 	github.com/chromedp/chromedp v0.14.1
 	github.com/cucumber/godog v0.15.1
 	github.com/dlclark/regexp2 v1.11.5
-	github.com/docker/docker v28.4.0+incompatible
+	github.com/docker/docker v28.5.0+incompatible
 	github.com/docker/go-connections v0.6.0
 	github.com/gomarkdown/markdown v0.0.0-20250810172220-2e2c11897d1a
 	github.com/google/uuid v1.6.0
@@ -19,7 +19,7 @@ require (
 	github.com/mholt/archives v0.1.4
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/prometheus/client_golang v1.23.2
-	github.com/shirou/gopsutil/v4 v4.25.8
+	github.com/shirou/gopsutil/v4 v4.25.9
 	github.com/spf13/pflag v1.0.10
 	github.com/testcontainers/testcontainers-go v0.39.0
 	go.uber.org/multierr v1.11.0
@@ -122,6 +122,6 @@ require (
 	golang.org/x/time v0.13.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250728155136-f173205681a0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250728155136-f173205681a0 // indirect
-	google.golang.org/protobuf v1.36.9 // indirect
+	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
