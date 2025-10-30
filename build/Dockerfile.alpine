@@ -63,7 +63,7 @@ RUN go build -o gotenberg -ldflags "-X 'github.com/gotenberg/gotenberg/v8/cmd.Ve
 # ----------------------------------------------
 ARG DOCKER_REGISTRY
 ARG DOCKER_REPOSITORY
-FROM gotenberg/gotenberg:latest AS gotenberg-default-image
+FROM $DOCKER_REGISTRY/$DOCKER_REPOSITORY:latest AS gotenberg-default-image
 
 # ----------------------------------------------
 # Final stage
