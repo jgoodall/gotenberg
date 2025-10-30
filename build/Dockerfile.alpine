@@ -63,7 +63,7 @@ RUN go build -o gotenberg -ldflags "-X 'github.com/gotenberg/gotenberg/v8/cmd.Ve
 # ----------------------------------------------
 ARG DOCKER_REGISTRY
 ARG DOCKER_REPOSITORY
-FROM $DOCKER_REGISTRY/$DOCKER_REPOSITORY:latest AS gotenberg-default-image
+FROM gotenberg/gotenberg:latest AS gotenberg-default-image
 
 # ----------------------------------------------
 # Final stage
@@ -118,11 +118,10 @@ RUN \
     # Verify installation.
     chromium --version
 
-# Install LibreOffice from edge repo & unoconverter from base image.
+# Install LibreOffice.
 RUN \
     apk update -q &&\
-    apk add -q --no-cache libassuan poppler icu-dev &&\
-    apk add -q --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community libreoffice &&\
+    apk add -q --no-cache libassuan poppler icu-dev libreoffice &&\
     apk add -q --no-cache py3-setuptools py3-looseversion &&\
     curl -Ls https://raw.githubusercontent.com/gotenberg/unoconverter/v0.1.1/unoconv -o /usr/bin/unoconverter &&\
     chmod +x /usr/bin/unoconverter &&\
