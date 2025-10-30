@@ -119,12 +119,13 @@ RUN \
     chromium --version
 
 # Install LibreOffice from edge repo & unoconverter from base image.
-COPY --from=gotenberg-default-image /usr/bin/unoconverter /usr/bin/unoconverter
 RUN \
     apk update -q &&\
     apk add -q --no-cache libassuan poppler icu-dev &&\
     apk add -q --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community libreoffice &&\
     apk add -q --no-cache py3-setuptools py3-looseversion &&\
+    curl -Ls https://raw.githubusercontent.com/gotenberg/unoconverter/v0.1.1/unoconv -o /usr/bin/unoconverter &&\
+    chmod +x /usr/bin/unoconverter &&\
     # Verify installations.
     libreoffice --version &&\
     unoconverter --version
