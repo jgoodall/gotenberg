@@ -1,7 +1,7 @@
 # ARG instructions do not create additional layers. Instead, next layers will
 # concatenate them. Also, we have to repeat ARG instructions in each build
 # stage that uses them.
-ARG GOLANG_VERSION=1.25.0
+ARG GOLANG_VERSION=1.25.4
 
 # ----------------------------------------------
 # pdfcpu binary build stage
@@ -11,7 +11,7 @@ ARG GOLANG_VERSION=1.25.0
 FROM golang:$GOLANG_VERSION AS pdfcpu-binary-stage
 
 # See https://github.com/pdfcpu/pdfcpu/releases.
-ARG PDFCPU_VERSION=v0.11.0
+ARG PDFCPU_VERSION=v0.11.1
 ENV CGO_ENABLED=0
 
 # Define the working directory outside of $GOPATH (we're using go modules).

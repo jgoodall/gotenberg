@@ -31,7 +31,6 @@ type browser interface {
 type browserArguments struct {
 	// Executor args.
 	binPath                  string
-	incognito                bool
 	allowInsecureLocalhost   bool
 	ignoreCertificateErrors  bool
 	disableWebSecurity       bool
@@ -107,10 +106,6 @@ func (b *chromiumBrowser) Start(logger *zap.Logger) error {
 		// See https://github.com/gotenberg/gotenberg/issues/1293.
 		chromedp.Flag("disable-component-update", false),
 	)
-
-	if b.arguments.incognito {
-		opts = append(opts, chromedp.Flag("incognito", b.arguments.incognito))
-	}
 
 	if b.arguments.allowInsecureLocalhost {
 		// See https://github.com/gotenberg/gotenberg/issues/488.
@@ -410,12 +405,20 @@ func (b *chromiumBrowser) do(ctx context.Context, logger *zap.Logger, url string
 	if err != nil {
 		errMessage := err.Error()
 
+		if strings.Contains(errMessage, "Printing failed (-32000)") {
+			return ErrPrintingFailed
+		}
+
 		if strings.Contains(errMessage, "Show invalid printer settings error (-32000)") || strings.Contains(errMessage, "content area is empty (-32602)") {
 			return ErrInvalidPrinterSettings
 		}
 
 		if strings.Contains(errMessage, "Page range syntax error") {
 			return ErrPageRangesSyntaxError
+		}
+
+		if strings.Contains(errMessage, "Page range exceeds page count (-32000)") {
+			return ErrPageRangesExceedsPageCount
 		}
 
 		if strings.Contains(errMessage, "rpcc: message too large") {
